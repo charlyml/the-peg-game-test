@@ -1,50 +1,22 @@
-# React + TypeScript + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I decided to use a frontend app to interact with the algorithm, the UI and the styles were created by the AI since I did't want too spend to much time styling and managing states
 
-Currently, two official plugins are available:
+## Running Tests
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To run tests, go to the peg-game-front folder and run the following command
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+  npm run test
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Improvements
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+This is a basic React app, my main goal is to show you how to interact with the algorithm and not show off my frontend skills. However, I would like to list what I would improve if this were code for a production environment.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Router
+- React Query to call a backend
+- Composition and compound components to avoid Prop Drilling
+- End-to-end tests using Cypress or Playwright
+- Global state manager(Redux, Zuztand, or even just React context with a dispatcher)
+- A CSS framework like Tailwind
