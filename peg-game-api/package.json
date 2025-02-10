@@ -4,8 +4,10 @@
   "description": "",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "start": "ts-node dist/index.js",
-    "build": "tsc -p ."
+    "start": "ts-node dist/src/index.js",
+    "build": "tsc -p .",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +15,15 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",
+    "drizzle-kit": "^0.30.4",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "drizzle-orm": "^0.39.2",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
   }
 }

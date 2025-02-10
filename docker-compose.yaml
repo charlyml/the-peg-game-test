@@ -21,16 +21,16 @@ services:
     environment:
       - DB_HOST=db
       - DB_USER=root
-      - DB_PASSWORD=rootpassword
-      - DB_NAME=mydatabase
+      - DB_PASSWORD=pegGame
+      - DB_NAME=pegGame
     command: npm start
 
   db:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
+      MYSQL_ROOT_PASSWORD: pegGame
+      MYSQL_DATABASE: pegGame
     ports:
       - "3306:3306"
     networks:
