@@ -17,7 +17,6 @@ type GameProps = {
 
 export const Game = ({ emptyHole }: GameProps) => {
   const [board, setBoard] = useState(initialBoard);
-
   const [selectedHole, setSelectedHole] = useState<number | null>(null);
   const [solution, setSolution] = useState<Move[] | null>(null);
 

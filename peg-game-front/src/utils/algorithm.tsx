@@ -45,17 +45,19 @@ const MOVES: Move[] = [
   { from: 14, over: 13, to: 12 },
 ];
 
-export const setBoard = (hole: number) => {
-  initialBoard[hole] = false;
-};
+export const setBoard = (hole: number) => (initialBoard[hole] = false);
 
 export const canMove = (
   board: boolean[],
   from: number,
   to: number
 ): boolean => {
-  const move = MOVES.find((m) => m.from === from && m.to === to);
+  const move = getValidMove(from, to);
   if (!move) return false;
+
+  // return true if the from hole has a peg
+  // the over hole has a peg
+  // and the to hole is empty
   return board[from] && board[move.over] && !board[to];
 };
 
@@ -65,36 +67,30 @@ export const makeMove = (
   to: number
 ): boolean[] => {
   const newBoard = [...board];
-  const move = MOVES.find((m) => m.from === from && m.to === to);
+  const validMove = getValidMove(from, to);
 
-  if (move) {
-    newBoard[from] = false;
-    newBoard[move.over] = false;
-    newBoard[to] = true;
+  if (validMove) {
+    move(newBoard, from, validMove.over, to);
   }
 
   return newBoard;
 };
-
-const getValidMoves = (board: boolean[]): Move[] =>
-  MOVES.filter(
-    ({ from, over, to }) => board[from] && board[over] && !board[to]
-  );
 
 export const youWon = (board: boolean[]) => board.filter(Boolean).length === 1;
 
 export const solve = (board: boolean[], path: Move[] = []): Move[] | null => {
   if (youWon(board)) return path;
 
-  const moves = getValidMoves(board);
+  const validMoves = getValidMoves(board);
 
-  for (const move of moves) {
+  for (const validMove of validMoves) {
+    // javascript passes arrays by reference
+    // so we need to create a new array for every recursive call
+    // to avoid modifying the original array
     const newBoard = [...board];
-    newBoard[move.from] = false;
-    newBoard[move.over] = false;
-    newBoard[move.to] = true;
+    move(newBoard, validMove.from, validMove.over, validMove.to);
+    const result = solve(newBoard, [...path, validMove]);
 
-    const result = solve(newBoard, [...path, move]);
     if (result) return result;
   }
 
@@ -118,3 +114,17 @@ export const getMovements = (
 
 export const gameOver = (board: boolean[]): boolean =>
   !MOVES.some(({ from, over, to }) => board[from] && board[over] && !board[to]);
+
+const getValidMove = (from: number, to: number) =>
+  MOVES.find((m) => m.from === from && m.to === to);
+
+const getValidMoves = (board: boolean[]): Move[] =>
+  MOVES.filter(
+    ({ from, over, to }) => board[from] && board[over] && !board[to]
+  );
+
+const move = (board: boolean[], from: number, over: number, to: number) => {
+  board[from] = false;
+  board[over] = false;
+  board[to] = true;
+};

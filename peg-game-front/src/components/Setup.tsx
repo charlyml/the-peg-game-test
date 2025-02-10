@@ -11,6 +11,10 @@ export const Setup = ({ setEmptyHole }: SetupProps) => {
     const formData = new FormData(e.currentTarget);
     const formDataValue = formData.get("emptyHole");
     const emptyHole = +formDataValue!;
+    if (emptyHole < 0 || emptyHole > 14) {
+      alert("Invalid hole number");
+      return;
+    }
     setEmptyHole(emptyHole);
     setBoard(emptyHole);
   };
