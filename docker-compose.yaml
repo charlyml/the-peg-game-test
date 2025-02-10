@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./peg-game-front
+    ports:
+      - "3000:5173"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build: ./peg-game-api
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    networks:
+      - app-network
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=mydatabase
+    command: npm start
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+networks:
+  app-network:
+
+volumes:
+  mysql-data:
