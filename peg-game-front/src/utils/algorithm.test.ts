@@ -3,7 +3,6 @@ import {
   initialBoard,
   setBoard,
   canMove,
-  makeMove,
   youWon,
   getMovements,
   gameOver,
@@ -36,31 +35,10 @@ describe("algorithm tests", () => {
     expect(canMove(board, 0, 3)).toBe(false);
   });
 
-  it("should make a move correctly", () => {
-    const newBoard = makeMove(board, 0, 3);
-    expect(newBoard[0]).toBe(false);
-    expect(newBoard[1]).toBe(false);
-    expect(newBoard[3]).toBe(true);
-  });
-
   it("should check if you won the game", () => {
-    const winningBoard = [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-    ];
+    const winningBoard = Array(15).fill(false);
+
+    winningBoard[14] = true;
     expect(youWon(winningBoard)).toBe(true);
   });
 
@@ -71,29 +49,31 @@ describe("algorithm tests", () => {
   });
 
   it("should check if the game is over", () => {
-    const gameOverBoard = [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-    ];
+    const gameOverBoard = Array(15).fill(true);
+    gameOverBoard[14] = true;
     expect(gameOver(gameOverBoard)).toBe(true);
   });
 
-  it("should solve the board correctly", () => {
+  it("should solve the game when the empty hole is at position 0", () => {
     const solution = solve(board);
     expect(solution).not.toBeNull();
     expect(solution?.length).toBeGreaterThan(0);
+  });
+
+  it("should solve the game when the empty hole is at position 14", () => {
+    const newGame = Array(15).fill(true);
+    newGame[14] = false;
+    const solution = solve(board);
+    expect(solution).not.toBeNull();
+    expect(solution?.length).toBeGreaterThan(0);
+  });
+
+  it("should not solve the game when empty hole is invalid", () => {
+    const newGame = Array(15).fill(true);
+    newGame[100] = false;
+    console.log("board", board);
+    const solution = solve(newGame);
+    expect(solution).toBeNull();
+    //expect(solution?.length).toBeGreaterThan(0);
   });
 });

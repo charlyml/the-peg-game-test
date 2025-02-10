@@ -6,18 +6,23 @@ type SetupProps = {
 };
 
 export const Setup = ({ setEmptyHole }: SetupProps) => {
-  const setupBoard = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = +e.currentTarget.value;
-    setBoard(value);
-    setEmptyHole(value);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const formDataValue = formData.get("emptyHole");
+    const emptyHole = +formDataValue!;
+    setEmptyHole(emptyHole);
+    setBoard(emptyHole);
   };
 
   return (
     <div>
-      <label>
-        Enter the empty hole:{" "}
-        <input type="number" name="emptyHole" onChange={setupBoard} />
-      </label>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Enter the empty hole: <input type="number" name="emptyHole" />
+        </label>
+        <button type="submit">Start Game</button>
+      </form>
     </div>
   );
 };

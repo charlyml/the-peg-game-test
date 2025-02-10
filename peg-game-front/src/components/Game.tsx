@@ -17,6 +17,7 @@ type GameProps = {
 
 export const Game = ({ emptyHole }: GameProps) => {
   const [board, setBoard] = useState(initialBoard);
+
   const [selectedHole, setSelectedHole] = useState<number | null>(null);
   const [solution, setSolution] = useState<Move[] | null>(null);
 
@@ -53,6 +54,7 @@ export const Game = ({ emptyHole }: GameProps) => {
   return (
     <div className="game">
       <h1>Cracker Barrel Peg Game</h1>
+      <h2>Empty hole: {emptyHole}</h2>
       <Board
         board={board}
         onHoleClick={handleHoleClick}
