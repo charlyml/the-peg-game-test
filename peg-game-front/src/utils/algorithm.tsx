@@ -99,7 +99,7 @@ const getValidMoves = (board: boolean[]): Move[] =>
 
 export const youWon = (board: boolean[]) => board.filter(Boolean).length === 1;
 
-const solve = (board: boolean[], path: Move[] = []): Move[] | null => {
+export const solve = (board: boolean[], path: Move[] = []): Move[] | null => {
   if (youWon(board)) return path;
 
   const moves = getValidMoves(board);
