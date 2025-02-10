@@ -1,17 +1,24 @@
 import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-import { drizzle } from "drizzle-orm/mysql2";
 import { games } from "./db/schema";
+import cors from "cors";
+import { db } from "./db";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const db = drizzle(process.env.DATABASE_URL!);
-
 const app: Express = express();
+app.use(cors());
+app.options("*", cors());
+
 const port = process.env.PORT || 3001;
+
+app.get("/", async (req: Request, res: Response) => {
+  res.json("Hello");
+});
 
 app.post("/game", async (req: Request, res: Response) => {
   const { emptyHole, win } = req.body;
+  console.log(emptyHole, win);
   await db.insert(games).values({ emptyHole, win });
 });
 

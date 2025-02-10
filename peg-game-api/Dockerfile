@@ -28,7 +28,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
 
 # Expose application port
-EXPOSE 3001
+EXPOSE 3000
 
 # Run the application
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/src/index.js"]
