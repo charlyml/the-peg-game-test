@@ -4,23 +4,7 @@ export type Move = {
   to: number;
 };
 
-export const initialBoard: boolean[] = [
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-];
+export const initialBoard: boolean[] = Array(15).fill(true);
 
 const MOVES: Move[] = [
   { from: 0, over: 1, to: 3 },
